@@ -1,0 +1,980 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<meta http-equiv="Cache-control" content="public">
+<link rel="stylesheet" type="text/css" href="main.css">
+<script src="db.js"></script>
+<script src="main.js"></script>
+<style>
+.options {position:relative;border:1px solid;font-family:"Trebuchet MS", Helvetica, sans-serif;font-size:small;}
+.button { padding:0px;margin-bottom:10px;font-family:Impact, Charcoal, sans-serif;letter-spacing:1px;display:block;height:20px;width:100%;vertical-align:middle;  border:1px solid rgba(0,0,0,0.0);box-shadow:0 5px 5px #000;cursor:pointer;}
+.button:hover {background: rgba(100,149,237,0.4); border:1px solid rgba(100,149,237,0.8); }
+#slider_div {color:#666;}
+#slider {width:600px;background:#0f0;}
+.display {dispaly:block;margin-left:20px;}
+#pre { cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="options" id="slider_main" style="display:block">
+<P ALIGN="left">Physical state of element under standard condition:</p>
+<div  class="phy_prop">
+<div id="slider_div">0K<input id="slider" type="range" value="0" min="0" max="6000" step="1" onchange="temp_refresh(this.value)"  oninput="temp_refresh(this.value)">6000K<sup id="pre" onclick="pre()">[P]</sup></div>
+<div><span id="cur_val">0</span>K</div>
+</div><input type="radio" name="property" onclick="property(0,0,MassNumber,'spectrum.bmp')">mass number</input>
+<input type="radio" name="property" onclick="property(0,0,heatcapicity,'spectrum.bmp')">heat capicity</input>
+<input type="radio" name="property" onclick="property(0,0,poissionratio,'spectrum.bmp')">poission ratio</input>
+<input type="radio" name="property" onclick="property(0,0,MassMagneticSusceptibility,'spectrum.bmp')">MassMagneticSusceptibility</input>
+<input type="radio" name="property" onclick="property(0,0,discoveryyear,'spectrum.bmp')">discoveryyear</input>
+<input type="radio" name="property" onclick="property(0,0,enthalpyofatomazitation,'spectrum.bmp')">enthalpyofatomazitation</input>
+<input type="radio" name="property" onclick="property(0,0,enthalpyoffusion,'spectrum.bmp')">enthalpyoffusion</input>
+<input type="radio" name="property" onclick="property(0,0,enthalpyofvaporisation,'spectrum.bmp')">enthalpyofvaporisation</input>
+<input type="radio" name="property" onclick="property(0,0,density,'spectrum.bmp')">density</input>
+<input type="radio" name="property" onclick="property(0,0,electricialresist,'spectrum.bmp')">electricialresist</input>
+<input type="radio" name="property" onclick="property(0,0,electronnegtivety,'spectrum.bmp')">electronnegtivety</input>
+<input type="radio" name="property" onclick="property(0,0,atomicradiiVanderwaals,'spectrum.bmp')">atomicradiiVanderwaals</input>
+<input type="radio" name="property" onclick="property(0,0,atomicradiiMetalic,'spectrum.bmp')">atomicradiiMetalic</input>
+<input type="radio" name="property" onclick="property(0,0,atomicradiiCovelentradius,'spectrum.bmp')">atomicradiiCovelentradius</input>
+
+</div>
+<table border="0" width="100%"><tr><td id="phy_prop" style="border-right:1px solid #888;vertical-align:middle;">
+<div class="button"style="background:#555555;height:40px;vertical-align:middle;border-bottom:2px solid rgba(30,30,30,0.8);"  onclick="physical_property(1)">Display Mode</div>
+<div class="button"style="background:#555555"  onclick="physical_property(1)">Solid</div>
+<div class="button" style="background:#D2B48C" onclick="physical_property(2)">Liquid</div>
+<div class="button" style="background:#008B8B" onclick="physical_property(3)">Gas</div>
+<div class="button" style="background:#556B2F" onclick="physical_property(4)">Synthetic</div>
+<div class="button" style="background:#BC8F8F" onclick="start_dyn()">Dynamic</div><br>
+<div class="button" style="background:#8FBC8F" onclick="physical_property(5)">Show all</div>
+</td><td>
+<div style="border:0px solid #000;">
+ <table border=0 class="element_det"><tbody><tr><td id="element_icon" class="element_icon">
+<img src="1.jpg" class="element_icon_img element_icon" border="0">
+</td>
+<td id="element_info" class="element_info">
+<div class="element_info_header">
+<div id="element_info_header_an" class="element_info_header_an">62</div>
+<div id="element_info_header_mn" class="element_info_header_mn">150.36</div>
+</div>
+<div id="element_info_element" class="element_info_element">H</div>
+<div id="element_info_element_add" class="element_info_element_add">No Data</div>
+
+
+<div class="element_info_footer">
+<div id="element_info_footer_mp" class="element_info_footer_mp">14.01</div>
+<div id="element_info_footer_dn" class="element_info_footer_dn">0.089</div>
+<div id="element_info_footer_bp" class="element_info_footer_bp">20.268</div>
+<div id="element_info_footer_en" class="element_info_footer_en">2.2</div>
+</div>
+</td>
+<td class="space"></td>
+</tr></tbody>
+</table>
+<table style="table-layout:fixed" class="ptable">
+	<tbody>
+	<tr align="center" valign="bottom">
+		<td></td>
+		 <td><div id="alkli"  class="column alkli" onclick="highlight(null,'66cccc','alkli','h','li','na','k','rb','cs','fr')">1</div></td>
+		<td colspan="16" style="border:0px;"></td>
+		<td><div id="nobel" class="column nobel" onclick="highlight(null,'EFE77E','nobel','he','ne','ar','kr','xe','rn',null)">18</div></td>
+
+		<tr align="center" valign="bottom"><!-- 1st Period -->
+		<td class="period">1</td>
+			<td id="h" >
+			<div onmouseenter="element_info(1)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">1</div>
+				<div class="element">H</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+		  <td><div id="alkli_earth" class="column alkli_earth" onclick="highlight(null,'cc75ff','alkli_earth','be','mg','ca','sr','ba','ra',null)">2</div></td>
+		 <td colspan="10" style="border:0px;"></td>
+		  <td><div class="column metaloids">13</div></td>
+ 		<td><div class="column non_metals">14</div></td>
+ 		<td><div class="column non_metals">15</div></td>
+ 		<td><div class="column non_metals">16</div></td>
+ 		<td><div id="halogen" class="column halogen" onclick="highlight(null,'deb887','halogen','f','cl','br','i','at',null,null)">17</div></td>
+
+		 <td id="he">
+		 			<div onmouseenter="element_info(2)" class="load_einfo"><div class="element_layer2">
+		 				<div style="text-align:left" class="atomic_number">2</div>
+		 				<div class="element">He</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		</tr>
+
+		<tr align="center" valign="bottom"><!-- 2nd Period -->
+		<td class="period">2</td>
+			<td id="li">
+			<div onmouseenter="element_info(3)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">3</div>
+				<div class="element">Li</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+<td id="be">
+			<div onmouseenter="element_info(4)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">4</div>
+				<div class="element">Be</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+
+		 <td colspan="10" style="border:0px;"></td>
+		 <td id="b">
+		 			<div onmouseenter="element_info(5)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">5</div>
+		 				<div class="element">B</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="c">
+		 			<div onmouseenter="element_info(6)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">6</div>
+		 				<div class="element">C</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="n">
+		 			<div onmouseenter="element_info(7)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">7</div>
+		 				<div class="element">N</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="o">
+		 			<div onmouseenter="element_info(8)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">8</div>
+		 				<div class="element">O</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="f">
+		 			<div onmouseenter="element_info(9)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">9</div>
+		 				<div class="element">F</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="ne">
+		 			<div onmouseenter="element_info(10)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">10</div>
+		 				<div class="element">Ne</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		</tr>
+
+		<tr align="center" valign="bottom"><!-- 3rd Period -->
+					<td class="period">3</td>
+			<td id="na">
+			<div onmouseenter="element_info(11)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">11</div>
+				<div class="element">Na</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+<td id="mg">
+			<div onmouseenter="element_info(12)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">12</div>
+				<div class="element">Mg</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+
+ <td><div class="column transition_metals">3</div></td>
+  <td><div class="column transition_metals">4</div></td>
+ <td><div class="column transition_metals">5</div></td>
+ <td><div class="column transition_metals">6</div></td>
+ <td><div class="column transition_metals">7</div></td>
+ <td><div class="column transition_metals">8</div></td>
+ <td><div class="column transition_metals">9</div></td>
+ <td><div class="column transition_metals">10</div></td>
+ <td><div class="column transition_metals">11</div></td>
+ <td><div class="column transition_metals">12</div></td>
+
+ <td id="al">
+		 			<div onmouseenter="element_info(13)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">13</div>
+		 				<div class="element">Al</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="si">
+		 			<div onmouseenter="element_info(14)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">14</div>
+		 				<div class="element">Si</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="p">
+		 			<div onmouseenter="element_info(15)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">15</div>
+		 				<div class="element">P</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="s">
+		 			<div onmouseenter="element_info(16)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">16</div>
+		 				<div class="element">S</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="cl">
+		 			<div onmouseenter="element_info(17)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">17</div>
+		 				<div class="element">Cl</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="ar">
+		 			<div onmouseenter="element_info(18)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">18</div>
+		 				<div class="element">Ar</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		</tr>
+
+		<tr align="center" valign="bottom"><!-- 4th Period -->
+					<td class="period">4</td>
+			<td id="k">
+			<div onmouseenter="element_info(19)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">19</div>
+				<div class="element">K</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+<td id="ca">
+			<div onmouseenter="element_info(20)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">20</div>
+				<div class="element">Ca</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+		 <td id="sc">
+		 			<div onmouseenter="element_info(21)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">21</div>
+		 				<div class="element">Sc</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="ti">
+		 			<div onmouseenter="element_info(22)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">22</div>
+		 				<div class="element">Ti</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="v">
+		 			<div onmouseenter="element_info(23)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">23</div>
+		 				<div class="element">V</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="cr">
+		 			<div onmouseenter="element_info(24)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">24</div>
+		 				<div class="element">Cr</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="mn">
+		 			<div onmouseenter="element_info(25)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">25</div>
+		 				<div class="element">Mn</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="fe">
+		 			<div onmouseenter="element_info(26)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">26</div>
+		 				<div class="element">Fe</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="co">
+		 			<div onmouseenter="element_info(27)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">27</div>
+		 				<div class="element">Co</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="ni">
+		 			<div onmouseenter="element_info(28)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">28</div>
+		 				<div class="element">Ni</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="cu">
+		 			<div onmouseenter="element_info(29)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">29</div>
+		 				<div class="element">Cu</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="zn">
+		 			<div onmouseenter="element_info(30)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">30</div>
+		 				<div class="element">Zn</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="ga">
+		 			<div onmouseenter="element_info(31)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">31</div>
+		 				<div class="element">Ga</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="ge">
+		 			<div onmouseenter="element_info(32)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">32</div>
+		 				<div class="element">Ge</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="as">
+		 			<div onmouseenter="element_info(33)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">33</div>
+		 				<div class="element">As</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 <td id="se">
+		 			<div onmouseenter="element_info(34)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">34</div>
+		 				<div class="element">Se</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="br">
+		 			<div onmouseenter="element_info(35)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">35</div>
+		 				<div class="element">Br</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="kr">
+		 			<div onmouseenter="element_info(36)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">36</div>
+		 				<div class="element">Kr</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+
+		</tr>
+
+		<tr align="center" valign="bottom"><!-- 5th Period -->
+					<td class="period">5</td>
+			<td id="rb">
+			<div onmouseenter="element_info(37)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">37</div>
+				<div class="element">Rb</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+<td id="sr">
+			<div onmouseenter="element_info(38)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">38</div>
+				<div class="element">Sr</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+		 <td id="y">
+		 			<div onmouseenter="element_info(39)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">39</div>
+		 				<div class="element">Y</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="zr">
+		 			<div onmouseenter="element_info(40)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">40</div>
+		 				<div class="element">Zr</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="nb">
+		 			<div onmouseenter="element_info(41)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">41</div>
+		 				<div class="element">Nb</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="mo">
+		 			<div onmouseenter="element_info(42)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">42</div>
+		 				<div class="element">Mo</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="tc">
+		 			<div onmouseenter="element_info(43)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">43</div>
+		 				<div class="element">Tc</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="ru">
+		 			<div onmouseenter="element_info(44)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">44</div>
+		 				<div class="element">Ru</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="rh">
+		 			<div onmouseenter="element_info(45)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">45</div>
+		 				<div class="element">Rh</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="pd">
+		 			<div onmouseenter="element_info(46)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">46</div>
+		 				<div class="element">Pd</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="ag">
+		 			<div onmouseenter="element_info(47)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">47</div>
+		 				<div class="element">Ag</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="cd">
+		 			<div onmouseenter="element_info(48)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">48</div>
+		 				<div class="element">Cd</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="in">
+		 			<div onmouseenter="element_info(49)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">49</div>
+		 				<div class="element">In</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="sn">
+		 			<div onmouseenter="element_info(50)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">50</div>
+		 				<div class="element">Sn</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="sb">
+		 			<div onmouseenter="element_info(51)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">51</div>
+		 				<div class="element">Sb</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 <td id="te">
+		 			<div onmouseenter="element_info(52)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">52</div>
+		 				<div class="element">Te</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="i">
+		 			<div onmouseenter="element_info(53)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">53</div>
+		 				<div class="element">I</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="xe">
+		 			<div onmouseenter="element_info(54)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">54</div>
+		 				<div class="element">Xe</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		</tr>
+
+		<tr align="center" valign="bottom"><!-- 6th Period -->
+					<td class="period">6</td>
+			<td id="cs">
+			<div onmouseenter="element_info(55)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">55</div>
+				<div class="element">Cs</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+<td id="ba">
+			<div onmouseenter="element_info(56)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left">56</div>
+				<div class="element">Ba</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+		 <td id="la">
+		 			<div onmouseenter="element_info(57)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">57</div>
+		 				<div class="element">La*</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="hf">
+		 			<div onmouseenter="element_info(72)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">72</div>
+		 				<div class="element">Hf</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="ta">
+		 			<div onmouseenter="element_info(73)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">73</div>
+		 				<div class="element">Ta</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="w">
+		 			<div onmouseenter="element_info(74)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">74</div>
+		 				<div class="element">W</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="re">
+		 			<div onmouseenter="element_info(75)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">75</div>
+		 				<div class="element">Re</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="os">
+		 			<div onmouseenter="element_info(76)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">76</div>
+		 				<div class="element">Os</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="ir">
+		 			<div onmouseenter="element_info(77)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">77</div>
+		 				<div class="element">Ir</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="pt">
+		 			<div onmouseenter="element_info(78)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">78</div>
+		 				<div class="element">Pt</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="au">
+		 			<div onmouseenter="element_info(79)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">79</div>
+		 				<div class="element">Au</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="hg">
+		 			<div onmouseenter="element_info(80)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">80</div>
+		 				<div class="element">Hg</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="tl">
+		 			<div onmouseenter="element_info(81)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">81</div>
+		 				<div class="element">Tl</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="pb">
+		 			<div onmouseenter="element_info(82)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">82</div>
+		 				<div class="element">Pb</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="bi">
+		 			<div onmouseenter="element_info(83)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">83</div>
+		 				<div class="element">Bi</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 <td id="po">
+		 			<div onmouseenter="element_info(84)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">84</div>
+		 				<div class="element">Po</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="at">
+		 			<div onmouseenter="element_info(85)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">85</div>
+				<div class="element">At</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="rn">
+		 			<div onmouseenter="element_info(86)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">86</div>
+		 		<div class="element">Rn</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		</tr>
+
+		<tr align="center" valign="bottom"><!-- 7th Period -->
+					<td class="period">7</td>
+			<td id="fr">
+			<div onmouseenter="element_info(87)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">87</div>
+				<div class="element">Fr</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+<td id="ra">
+			<div onmouseenter="element_info(88)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">88</div>
+				<div class="element">Ra</div>
+				<div class="mass_number">1.008</div>
+			</div></div>
+		 </td>
+		 <td id="ac">
+		 			<div onmouseenter="element_info(89)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">89</div>
+		 				<div class="element">Ac*</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="rf">
+		 			<div onmouseenter="element_info(104)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">104</div>
+		 				<div class="element">Rf</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="db">
+		 			<div onmouseenter="element_info(105)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">105</div>
+		 				<div class="element">Db</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="sg">
+		 			<div onmouseenter="element_info(106)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">106</div>
+		 				<div class="element">Sg</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="bh">
+		 			<div onmouseenter="element_info(107)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">107</div>
+		 				<div class="element">Bh</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="hs">
+		 			<div onmouseenter="element_info(108)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">108</div>
+		 				<div class="element">Hs</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="mt">
+		 			<div onmouseenter="element_info(109)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">109</div>
+		 				<div class="element">Mt</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="ds">
+		 			<div onmouseenter="element_info(110)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">110</div>
+		 				<div class="element">Ds</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="rg">
+		 			<div onmouseenter="element_info(111)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">111</div>
+		 				<div class="element">Rg</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="uub">
+		 			<div onmouseenter="element_info(112)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">112</div>
+		 				<div class="element">Uub</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="uut">
+		 			<div onmouseenter="element_info(113)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">113</div>
+		 				<div class="element">Uut</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="uuq">
+		 			<div onmouseenter="element_info(114)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">114</div>
+		 				<div class="element">Uuq</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="uup">
+		 			<div onmouseenter="element_info(115)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">115</div>
+		 				<div class="element">Uup</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 <td id="uuh">
+		 			<div onmouseenter="element_info(116)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">116</div>
+		 				<div class="element">Uuh</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="uus">
+		 			<div onmouseenter="element_info(117)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">117</div>
+		 				<div class="element">Uus</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+		 <td id="uuo">
+		 			<div onmouseenter="element_info(118)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">118</div>
+		 				<div class="element">Uuo</div>
+		 				<div class="mass_number">1.008</div>
+		 			</div></div>
+		 </td>
+
+		</tr>
+
+
+	</tbody>
+</table>
+
+<table class="extra">
+	<tbody>
+		<tr align="center" valign="bottom" id="lanthanoids"><!-- lanthanoids -->
+		<td colspan="4" class="extra_heading">Lanthanoid<br>series</td>
+		<td class="period special_period" id="period_lanth" onclick="highlight2(1)" onclick="">6</td>
+					 <td id="ce">
+					 			<div onmouseenter="element_info(58)" class="load_einfo"><div class="element_layer2">
+							<div style="text-align:left" class="atomic_number">58</div>
+					 				<div class="element">Ce</div>
+					 				<div class="mass_number">140.1</div>
+					 			</div></div>
+					 </td>
+					 		 <td id="pr">
+					 		 			<div onmouseenter="element_info(59)" class="load_einfo"><div class="element_layer2">
+					 				<div style="text-align:left" class="atomic_number">59</div>
+					 		 				<div class="element">Pr</div>
+					 		 				<div class="mass_number">140.9</div>
+					 		 			</div></div>
+					 		 </td>
+		 <td id="nd">
+		 			<div onmouseenter="element_info(60)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">60</div>
+		 				<div class="element">Nd</div>
+		 				<div class="mass_number">144.2</div>
+		 			</div></div>
+		 </td>
+		 <td id="pm">
+		 			<div onmouseenter="element_info(61)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">61</div>
+		 				<div class="element">Pm</div>
+		 				<div class="mass_number">145</div>
+		 			</div></div>
+		 </td>
+		 <td id="sm">
+		 			<div onmouseenter="element_info(62)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">62</div>
+		 				<div class="element">Sm</div>
+		 				<div class="mass_number">150.4</div>
+		 			</div></div>
+		 </td>
+		 <td id="eu">
+		 			<div onmouseenter="element_info(63)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">63</div>
+		 				<div class="element">Eu</div>
+		 				<div class="mass_number">152</div>
+		 			</div></div>
+		 </td>
+		 <td id="gd">
+		 			<div onmouseenter="element_info(64)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">64</div>
+		 				<div class="element">Gd</div>
+		 				<div class="mass_number">157.2</div>
+		 			</div></div>
+		 </td>
+		 <td id="tb">
+		 			<div onmouseenter="element_info(65)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">65</div>
+		 				<div class="element">Tb</div>
+		 				<div class="mass_number">158.9</div>
+		 			</div></div>
+		 </td>
+		 <td id="dy">
+		 			<div onmouseenter="element_info(66)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">66</div>
+		 				<div class="element">Dy</div>
+		 				<div class="mass_number">162.5</div>
+		 			</div></div>
+		 </td>
+		 <td id="ho">
+		 			<div onmouseenter="element_info(67)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">67</div>
+		 				<div class="element">Ho</div>
+		 				<div class="mass_number">164.9</div>
+		 			</div></div>
+		 </td>
+		 <td id="er">
+		 			<div onmouseenter="element_info(68)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">68</div>
+		 				<div class="element">Er</div>
+		 				<div class="mass_number">167.3</div>
+		 			</div></div>
+		 </td>
+		 <td id="tm">
+		 			<div onmouseenter="element_info(69)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">69</div>
+		 				<div class="element">Tm</div>
+		 				<div class="mass_number">168.9</div>
+		 			</div></div>
+		 </td>
+		 <td id="yb">
+		 			<div onmouseenter="element_info(70)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">70</div>
+		 				<div class="element">Yb</div>
+		 				<div class="mass_number">173</div>
+		 			</div></div>
+		 </td>
+		 <td id="lu">
+		 			<div onmouseenter="element_info(71)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">71</div>
+		 				<div class="element">Lu</div>
+		 				<div class="mass_number">175</div>
+		 			</div></div>
+		 </td>
+
+		</tr>
+
+		<tr align="center" valign="bottom" id="actinioids"><!-- actinioid -->
+		<td colspan="4" class="extra_heading">Actinioid<br>series</td>
+					<td class="period special_period" id="period_actini" onclick="highlight2(2)">7</td>
+				 <td id="th">
+				 			<div onmouseenter="element_info(90)" class="load_einfo"><div class="element_layer2">
+						<div style="text-align:left" class="atomic_number">90</div>
+				 				<div class="element">Th</div>
+				 				<div class="mass_number">232</div>
+				 			</div></div>
+				 </td>
+		 <td id="pa">
+		 			<div onmouseenter="element_info(91)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">91</div>
+		 				<div class="element">Pa</div>
+		 				<div class="mass_number">231</div>
+		 			</div></div>
+		 </td>
+		 <td id="u">
+		 			<div onmouseenter="element_info(92)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">92</div>
+		 				<div class="element">U</div>
+		 				<div class="mass_number">238</div>
+		 			</div></div>
+		 </td>
+		 <td id="np">
+		 			<div onmouseenter="element_info(93)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">93</div>
+		 				<div class="element">Np</div>
+		 				<div class="mass_number">237</div>
+		 			</div></div>
+		 </td>
+		 <td id="pu">
+		 			<div onmouseenter="element_info(94)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">94</div>
+		 				<div class="element">Pu</div>
+		 				<div class="mass_number">244</div>
+		 			</div></div>
+		 </td>
+		 <td id="am">
+		 			<div onmouseenter="element_info(95)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">95</div>
+		 				<div class="element">Am</div>
+		 				<div class="mass_number">243</div>
+		 			</div></div>
+		 </td>
+		 <td id="cm">
+		 			<div onmouseenter="element_info(96)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">96</div>
+		 				<div class="element">Cm</div>
+		 				<div class="mass_number">247</div>
+		 			</div></div>
+		 </td>
+		 <td id="bk">
+		 			<div onmouseenter="element_info(97)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">97</div>
+		 				<div class="element">Bk</div>
+		 				<div class="mass_number">247</div>
+		 			</div></div>
+		 </td>
+		 <td id="cf">
+		 			<div onmouseenter="element_info(98)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">98</div>
+		 				<div class="element">Cf</div>
+		 				<div class="mass_number">251</div>
+		 			</div></div>
+		 </td>
+		 <td id="es">
+		 			<div onmouseenter="element_info(99)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">99</div>
+		 				<div class="element">Es</div>
+		 				<div class="mass_number">252</div>
+		 			</div></div>
+		 </td>
+		 <td id="fm">
+		 			<div onmouseenter="element_info(100)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">100</div>
+		 				<div class="element">Fm</div>
+		 				<div class="mass_number">257</div>
+		 			</div></div>
+		 </td>
+		 <td id="md">
+		 			<div onmouseenter="element_info(101)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">101</div>
+		 				<div class="element">Md</div>
+		 				<div class="mass_number">258</div>
+		 			</div></div>
+		 </td>
+		 <td id="no">
+		 			<div onmouseenter="element_info(102)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">102</div>
+		 				<div class="element">No</div>
+		 				<div class="mass_number">259</div>
+		 			</div></div>
+		 </td>
+		 <td id="lr">
+		 			<div onmouseenter="element_info(103)" class="load_einfo"><div class="element_layer2">
+				<div style="text-align:left" class="atomic_number">103</div>
+		 				<div class="element">Lr</div>
+		 				<div class="mass_number">262</div>
+		 			</div></div>
+		 </td>
+
+
+
+		</tr>
+	</tbody>
+</table>
+</div>
+</td><td width="400px;"></td></tr></table>
+
+</body>
+
+</html>

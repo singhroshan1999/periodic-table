@@ -1,0 +1,53 @@
+
+.ptable { border-spacing:0px;border-collapse:collapse;margin-left: auto; margin-right: auto; margin-top:-145px;position:relative;z-index:1;}
+.ptable td { border:1px solid #fff;}
+.atomic_number { font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;font-size:12px; color:#000;}
+.element { font-family:"Trebuchet MS", Helvetica, sans-serif; font-weight:bold;}
+.mass_number { font-family:"Lucida Console", Monaco, monospace; font-size:12px; }
+a { color:#000; text-decoration:none; }
+.element_icon {background:#000;height:150;width:150;border:1px solid #000;display:table-cell;}
+.element_icon_img {height:150;width:150;padding:0;border:0;}
+.element_info {background: radial-gradient(#fff,#55ff55); height:130px;width:120px; border:1px solid #000;margin-top:10px; font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;font-size:12px;display:table-cell;}
+.element_info_header_an { text-align:left;width:50%; }
+.element_info_header_mn { text-align:right;position:relative;right:1px; top:-20px; }
+.element_info_element { text-align:center;font-size:18px;font-weight:bold; }
+.element_info_element_add { text-align:center;font-size:12px;}
+.element_info_footer_mp {}
+.element_info_footer_dn { text-align:right;position:relative;right:1px;bottom:20px; }
+.element_info_footer_bp { text-align:left;position:relative;bottom:4px; }
+.element_info_footer_en { text-align:right;position:relative;bottom:22px; }
+.load_einfo { border:2px solid rgba(0,0,0,0.0); }
+.load_einfo { cursor:pointer; }
+.garb { display:none;opacity:0.0; }
+.element_layer2 { width:36px; }
+.extra { position:relative;top:15px; border-spacing:0px;border-collapse:collapse;margin-left: auto; margin-right: auto;  }
+.extra_heading { color:#222;font-family:Verdana, Geneva, sans-serif;font-size:12px;text-align:right; vertical-align:middle;}
+.element_det {margin-left: auto; margin-right: auto; display:table;position:relative;z-index:2; }
+
+
+#h, #li, #na, #k, #rb, #cs, #fr { background:#88eeee; } /* alkli metal */
+#be, #mg, #ca, #sr, #ba, #ra {background:#cc75ff; }/* alkli earth metal */
+#sc, #y,  #ti, #zr, #hf, #v, #nb, #ta, #cr, #mo, #w, #mn, #tc, #re, #fe, #ru, #os, #co, #rh, #ir, #ni, #pd, #pt, #cu, #ag, #au, #zn, #cd, #hg { background:#6666ff; } /* transitional metals */
+#rf, #db, #sg, #bh, #hs, #mt, #ds, #rg, #uub, #uut, #uuq, #uup, #uuh, #uus, #uuo { background:#4F8F8F; } /* Transactinides */
+/* #la { background:#555555; }  lanthnoids */
+#la, #ce, #pr, #nd, #pm, #sm, #eu, #gd, #tb, #dy, #ho, #er, #tm, #yb, #lu { background:#888888; } /* lanthanoids */
+#ac, #th, #pa, #u, #np, #pu, #am, #cm, #bk, #cf, #es, #fm, #md, #no, #lr { background:#666666; } /* actinioids */
+#b, #si, #ge, #as, #sb, #te, #po { background:#00ee00; } /* metaliods */
+#c, #n, #o, #p, #s, #se { background:#00aa00; } /* non-metal */
+#al, #ga, #in, #sn, #tl, #pb, #bi { background:#ff8888; } /* metal */
+#f, #cl, #br, #i, #at { background:#DEB887; } /* halogen */
+#he, #ne, #ar, #kr, #xe, #rn { background:#EFE77E; }
+
+.column { font-family:Verdana, Geneva, sans-serif;font-size:12px; color:#8B4513;}
+.period {font-family:Verdana, Geneva, sans-serif;font-size:12px; vertical-align:middle;letter-spacing:3px;color:#8B4513;text-align:right;}
+.extra_period {  }
+.space { width:60px; }
+
+.alkli { border:1px solid #88eeee;font-weight:bold;cursor:pointer; }
+.alkli_earth { border:1px solid #cc75ff;font-weight:bold;cursor:pointer; }
+.transition_metals {  border:1px solid #6666ff;cursor:default; }
+.metaloids { border:1px solid #00ee00;cursor:default;}
+.non_metals { border:1px solid #00aa00; cursor:default;}
+.halogen {border:1px solid #deb887;font-weight:bold;cursor:pointer;}
+.nobel {border:1px solid #EFE77E;font-weight:bold;cursor:pointer;}
+.special_period {font-weight:bold;cursor:pointer;}
